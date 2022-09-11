@@ -17,11 +17,19 @@ import RowSelectionTable from '../component/RowSelectionTable';
 import ColumnOrderTable from '../component/ColumnOrderTable';
 import HidingColumnTable from '../component/ColumnHidingTable';
 import Table from '../component/Table';
+import Pagination from '../component/Pagination'
+import ModalImage from 'react-modal-image';
+import { useMediaQuery } from 'react-responsive';
 
 
 const Home: NextPage = () => {
 
   const [data, setData] = useState([]);
+  // const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [dataPerPage, setDataPerPage] = useState(10);
+
+  const isMobile = useMediaQuery({ query: `(max-width: 600px)` });
   
   // Using useEffect to call the API once mounted and set the data
     useEffect(() => {
@@ -30,36 +38,71 @@ const Home: NextPage = () => {
         setData(result.data);
       })();
     }, []);
-    
 
     const columns = useMemo(
       () => [
         {
           Header: 'id',
-          accessor: 'id',
-          // Footer: 'Id',
-          // Filter: ColumnFilter,
-          disableFilters: true
+          accessor: 'id'
         },
         {
           Header: 'title',
           accessor: 'title',
-          // Footer: 'First Name'
-          // Filter: ColumnFilter
         },
         {
           Header: 'thumbnail',
           accessor: 'thumbnailUrl',
           Cell: ({ cell: { value } }) => {
-            return <div><img height={60} src={value}/></div>
+            return <ModalImage
+            small={value}
+            large={value}
+            alt="Modal"
+          />
           }
-          // Cell: columns => <img src={} />
         },
-          // Footer: 'Last Name'
-          // Filter: ColumnFilter
       ],
       []
     );
+
+    const columnMobile = useMemo(
+      () => [
+        {
+          Header: 'id',
+          accessor: 'id'
+        },
+        {
+          Header: 'title',
+          accessor: 'title',
+        },
+      ],
+      [
+        {
+          Header: 'thumbnail',
+          accessor: 'thumbnailUrl',
+          colSpan: 2,
+          Cell: ({ cell: { value } }) => {
+            return <ModalImage
+            small={value}
+            large={value}
+            alt="Modal"
+          />
+          }
+        },
+      ]
+    );
+
+
+    // Get current data
+    const indexOfLastData = currentPage * dataPerPage;
+    // console.log(indexOfLastData);
+    const indexOfFirstData = indexOfLastData - dataPerPage;
+    // console.log(indexOfFirstData);
+    const currentData = data.slice(indexOfFirstData , indexOfLastData);
+    // console.log(currentPage);
+    const rangePage = 10;
+
+    //Change Page
+    const paginate = pageNumber => setCurrentPage(pageNumber);
 
   return (
     
@@ -74,9 +117,11 @@ const Home: NextPage = () => {
           {/* <CustomTable/> */}
           <div className={styles.container}>
             <h1>Custom Table</h1>
+            <h2>Current Page : {currentPage}</h2>
             <div className="App">
-              <Table columns={columns} data={data} />
+              {!isMobile ? <Table columns={columns} data={currentData} /> : <Table columns={columnMobile} data={currentData} /> }
             </div>
+            <Pagination dataPerPage={dataPerPage} totalData={data.length} paginate={paginate} currentPage={currentPage} rangePage={rangePage} />
             {/* <BasicTable /> */}
             {/* <GroupTable /> */}
             {/* <SortingTable /> */}

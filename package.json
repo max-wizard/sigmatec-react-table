@@ -11,13 +11,17 @@
   "dependencies": {
     "@reduxjs/toolkit": "1.8.5",
     "axios": "0.27.2",
+    "classnames": "2.3.1",
     "date-fns": "2.29.2",
     "next": "12.2.5",
     "react": "18.2.0",
     "react-data-table-component": "7.5.3",
     "react-dom": "18.2.0",
+    "react-modal-image": "2.6.0",
     "react-redux": "8.0.2",
+    "react-responsive": "9.0.0-beta.10",
     "react-table": "7.8.0",
+    "sass": "1.54.9",
     "styled-components": "5.3.5"
   },
   "devDependencies": {
