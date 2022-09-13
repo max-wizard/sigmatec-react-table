@@ -1,9 +1,6 @@
 import React, { useMemo , useEffect , useState } from 'react'
 import { useTable , useFilters } from "react-table";
 
-
-// const defaultPropGetter = () => ({});
-
 export default function Table({ columns, data }) {
 
     const [filterInput, setFilterInput] = useState("");

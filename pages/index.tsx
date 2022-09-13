@@ -2,19 +2,7 @@ import type { NextPage } from 'next'
 import React, { useMemo , useEffect , useState } from 'react'
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-import { useSelector, useDispatch } from 'react-redux'
-import { getContent } from '../storeData/getContent'
-import type { RootState } from '../store'
 import axios from 'axios';
-import CustomTable from '../component/CustomTable';
-import BasicTable from '../component/BasicTable';
-import GroupTable from '../component/GroupTable';
-import SortingTable from '../component/SortingTable';
-import FilteringTable from '../component/FilteringTable';
-import PaginationTable from '../component/PaginationTable';
-import RowSelectionTable from '../component/RowSelectionTable';
-import ColumnOrderTable from '../component/ColumnOrderTable';
-import HidingColumnTable from '../component/ColumnHidingTable';
 import Table from '../component/Table';
 import TableMobile from '../component/TableMobile';
 import Pagination from '../component/Pagination'
@@ -25,7 +13,6 @@ import { useMediaQuery } from 'react-responsive';
 const Home: NextPage = () => {
 
   const [data, setData] = useState([]);
-  // const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [dataPerPage, setDataPerPage] = useState(10);
 
@@ -93,11 +80,8 @@ const Home: NextPage = () => {
 
     // Get current data
     const indexOfLastData = currentPage * dataPerPage;
-    // console.log(indexOfLastData);
     const indexOfFirstData = indexOfLastData - dataPerPage;
-    // console.log(indexOfFirstData);
     const currentData = data.slice(indexOfFirstData , indexOfLastData);
-    // console.log(currentPage);
     const rangePage = 10;
 
     //Change Page
@@ -113,7 +97,6 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
-          {/* <CustomTable/> */}
           <div className={styles.container}>
             <h1>Custom Table</h1>
             <h2>Current Page : {currentPage}</h2>
@@ -121,14 +104,6 @@ const Home: NextPage = () => {
               {!isMobile ? <Table columns={columns} data={currentData} /> : <TableMobile columns={columnMobile} data={currentData} /> }
             </div>
             <Pagination dataPerPage={dataPerPage} totalData={data.length} paginate={paginate} currentPage={currentPage} rangePage={rangePage} />
-            {/* <BasicTable /> */}
-            {/* <GroupTable /> */}
-            {/* <SortingTable /> */}
-            {/* <FilteringTable /> */}
-            {/* <PaginationTable /> */}
-            {/* <RowSelectionTable /> */}
-            {/* <ColumnOrderTable /> */}
-            {/* <HidingColumnTable /> */}
           </div>
           
       </main>

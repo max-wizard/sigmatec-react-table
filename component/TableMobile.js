@@ -2,8 +2,6 @@ import React, { useMemo , useEffect , useState } from 'react'
 import { useTable , useFilters } from "react-table";
 import ModalImage from 'react-modal-image';
 
-// const defaultPropGetter = () => ({});
-
 export default function TableMobile({ columns, data }) {
 
     const [filterInput, setFilterInput] = useState("");
@@ -54,7 +52,6 @@ export default function TableMobile({ columns, data }) {
             <tbody {...getTableBodyProps()}>
                 {rows.map((row, i) => {
                 prepareRow(row);
-                // console.log(row);
                 return (
                     <tbody>
                         <tr key={i} {...row.getRowProps()}>
