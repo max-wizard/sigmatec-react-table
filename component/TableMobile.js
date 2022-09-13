@@ -1,10 +1,10 @@
 import React, { useMemo , useEffect , useState } from 'react'
 import { useTable , useFilters } from "react-table";
-
+import ModalImage from 'react-modal-image';
 
 // const defaultPropGetter = () => ({});
 
-export default function Table({ columns, data }) {
+export default function TableMobile({ columns, data }) {
 
     const [filterInput, setFilterInput] = useState("");
 
@@ -54,12 +54,19 @@ export default function Table({ columns, data }) {
             <tbody {...getTableBodyProps()}>
                 {rows.map((row, i) => {
                 prepareRow(row);
+                // console.log(row);
                 return (
-                    <tr {...row.getRowProps()}>
-                    {row.cells.map(cell => {
-                        return <td {...cell.getCellProps()}>{cell.render("Cell")}</td>;
-                    })}
-                    </tr>
+                    <tbody>
+                        <tr key={i} {...row.getRowProps()}>
+                            {row.cells.map(cell => {
+                                return <td {...cell.getCellProps()}>{cell.render("Cell")}</td>;
+                            })}
+                        </tr>
+                        <tr {...row.getRowProps()}>
+                            <td colSpan='2'>
+                            <ModalImage small={row.original.thumbnailUrl} large={row.original.thumbnailUrl} alt="Modal"/></td>
+                        </tr>
+                    </tbody>
                 );
                 })}
             </tbody>

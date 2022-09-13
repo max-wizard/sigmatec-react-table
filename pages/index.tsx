@@ -1,7 +1,6 @@
 import type { NextPage } from 'next'
 import React, { useMemo , useEffect , useState } from 'react'
 import Head from 'next/head'
-import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import { useSelector, useDispatch } from 'react-redux'
 import { getContent } from '../storeData/getContent'
@@ -17,6 +16,7 @@ import RowSelectionTable from '../component/RowSelectionTable';
 import ColumnOrderTable from '../component/ColumnOrderTable';
 import HidingColumnTable from '../component/ColumnHidingTable';
 import Table from '../component/Table';
+import TableMobile from '../component/TableMobile';
 import Pagination from '../component/Pagination'
 import ModalImage from 'react-modal-image';
 import { useMediaQuery } from 'react-responsive';
@@ -68,18 +68,17 @@ const Home: NextPage = () => {
       () => [
         {
           Header: 'id',
-          accessor: 'id'
+          accessor: 'id',
         },
         {
           Header: 'title',
           accessor: 'title',
-        },
+        }
       ],
       [
         {
           Header: 'thumbnail',
           accessor: 'thumbnailUrl',
-          colSpan: 2,
           Cell: ({ cell: { value } }) => {
             return <ModalImage
             small={value}
@@ -119,7 +118,7 @@ const Home: NextPage = () => {
             <h1>Custom Table</h1>
             <h2>Current Page : {currentPage}</h2>
             <div className="App">
-              {!isMobile ? <Table columns={columns} data={currentData} /> : <Table columns={columnMobile} data={currentData} /> }
+              {!isMobile ? <Table columns={columns} data={currentData} /> : <TableMobile columns={columnMobile} data={currentData} /> }
             </div>
             <Pagination dataPerPage={dataPerPage} totalData={data.length} paginate={paginate} currentPage={currentPage} rangePage={rangePage} />
             {/* <BasicTable /> */}

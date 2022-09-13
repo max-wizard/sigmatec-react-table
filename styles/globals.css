@@ -78,10 +78,6 @@ table th {
   padding: 8px;
 }
 
-table tr:nth-child(even) {
-  background-color: #e9ebec;
-}
-
 table tr:hover {
   background-color: #ddd;
 }
