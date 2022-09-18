@@ -1,4 +1,4 @@
-import React, { useMemo , useEffect , useState } from 'react'
+import React, { useState } from 'react'
 import { useTable , useFilters } from "react-table";
 
 export default function Table({ columns, data }) {

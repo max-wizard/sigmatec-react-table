@@ -1,4 +1,4 @@
-import React, { useMemo , useEffect , useState } from 'react'
+import React, { useState } from 'react'
 import { useTable , useFilters } from "react-table";
 import ModalImage from 'react-modal-image';
 
